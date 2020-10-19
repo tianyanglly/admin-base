@@ -16,32 +16,32 @@ use League\Flysystem\Exception;
  */
 class FastDFSAdapter extends AbstractAdapter
 {
-    const SESSION_KEY = 'fastdfs_file_url';
+    private $host;
 
-    private $api;
+    private $group;
 
     /**
      * FastDFSAdapter constructor.
      * @param string $root
-     * @param string $api
+     * @param string $host
+     * @param string $group
      * @throws Exception
      */
-    public function __construct(string $root, string $api)
+    public function __construct(string $root, string $host, string $group)
     {
         $root = is_link($root) ? realpath($root) : $root;
         $this->ensureDirectory($root);
 
         $this->setPathPrefix($root);
-        $this->api = $api;
+        $this->host = $host;
+        $this->group = $group;
     }
 
     public function getUrl($path){
         if(strpos($path, 'http://') !== false || strpos($path, 'https://') !== false) {
             return $path;
-        }else if (strpos($path, 'upload') !== false){
-            return $path;
         }else{
-            return '/upload/'.$path;
+            return $this->host . '/' . $this->group . '/' .$path;
         }
     }
 
@@ -69,11 +69,14 @@ class FastDFSAdapter extends AbstractAdapter
 
         $type = 'file';
 
-        $path = HttpHelper::uploadFile($this->api, $location, $err);
+        $data = [
+            'path' => dirname($path),
+            'filename' => basename($path)
+        ];
+        $path = HttpHelper::uploadFile($this->host . '/' . $this->group . '/' . 'upload', $location, $err, 'file', $data);
         if($path === false ){
             return false;
         }
-        session([self::SESSION_KEY => $path]);
         //删除本地文件
         @unlink($location);
         return compact('type', 'path');

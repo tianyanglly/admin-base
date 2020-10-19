@@ -74,7 +74,7 @@ class AdminBaseServiceProvider extends ServiceProvider
 
         //go-fastdfs适配器
         Storage::extend('dfs', function ($app, $config) {
-            $adapter = new FastDFSAdapter($config['root'], $config['api']);
+            $adapter = new FastDFSAdapter($config['root'], $config['host'], $config['group']);
             return new Filesystem($adapter);
         });
     }
