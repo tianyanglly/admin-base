@@ -60,7 +60,7 @@ class AdminBaseController extends AdminController
      */
     public function edit($id, Content $content)
     {
-        $id = intval($id);
+        is_numeric($id) && $id = intval($id);
         $this->id = $id;
         return parent::edit($id, $content);
     }
