@@ -2,24 +2,37 @@
 
 namespace AdminCommon\Actions\Row;
 
-use AdminBase\Models\AdminBaseModel;
 use Encore\Admin\Actions\RowAction;
-use Illuminate\Http\Request;
 
 class Href extends RowAction
 {
     public $name;
 
+    /**
+     * 跳转地址
+     * @var string
+     */
     public $url;
 
-    public function __construct($name, $url)
+    /**
+     * 是否开启新窗口
+     * @var bool
+     */
+    public $blank = true;
+
+    public function __construct($name, $url, $blank = true)
     {
         $this->name = $name;
         $this->url = $url;
+        $this->blank = $blank;
+        parent::__construct();
     }
 
     public function render()
     {
-        return "<a href='{$this->url}' target='_blank'>{$this->name}</a>";
+        if ($this->blank) {
+            return "<a href='{$this->url}' target='_blank'>{$this->name}</a>";
+        }
+        return "<a href='{$this->url}'>{$this->name}</a>";
     }
 }
