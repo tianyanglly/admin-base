@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminCommon\Actions\Row;
+namespace AdminBase\Actions;
 
 use Encore\Admin\Actions\RowAction;
 

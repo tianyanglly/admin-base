@@ -1,6 +1,6 @@
 <?php
 
-namespace AdminBase\Actions\Post;
+namespace AdminBase\Actions;
 
 use AdminBase\Utility\JsonHelper;
 use Encore\Admin\Actions\RowAction;
