@@ -2,10 +2,8 @@
 
 namespace AdminBase\Models;
 
-use AdminBase\Utility\JsonHelper;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
-use Exception;
+use DateTimeInterface;
 
 /**
  * 定义全局的 model 属性
@@ -55,5 +53,19 @@ class AdminBaseModel extends Model
     public function fromDateTime($value)
     {
         return strtotime(parent::fromDateTime($value));
+    }
+
+    /**
+     * Prepare a date for array / JSON serialization.
+     * 空时间戳时不用格式化
+     * @param  DateTimeInterface  $date
+     * @return string
+     */
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        if($date->getTimestamp() == 0) {
+            return '';
+        }
+        return parent::serializeDate($date);
     }
 }
