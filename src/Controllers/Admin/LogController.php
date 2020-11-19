@@ -3,7 +3,7 @@
 
 namespace AdminBase\Controllers\Admin;
 
-use AdminBase\Actions\Post\LogInput;
+use AdminBase\Actions\LogInput;
 use AdminBase\Models\Admin\User;
 use AdminBase\Traits\Search;
 use Encore\Admin\Auth\Database\OperationLog;
