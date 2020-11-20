@@ -14,6 +14,10 @@ class LogInput extends RowAction
 {
     public $name = "详细日志";
 
+    public function handle($model, $request){
+        return $this->response()->success('操作成功！');
+    }
+
     public function form($model)
     {
         $input = $model->input;
