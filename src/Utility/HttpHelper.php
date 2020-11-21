@@ -48,7 +48,7 @@ class HttpHelper
      * @param string $err
      * @return bool|string
      */
-    public static function get($url, $header = ['Accept: application/json'], &$err = '')
+    public static function get($url, $header = [], &$err = '')
     {
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -57,6 +57,11 @@ class HttpHelper
         // 超时设置,以秒为单位
         curl_setopt($curl, CURLOPT_TIMEOUT, self::TIMEOUT);
         // 设置请求头
+        if (!$header) {
+            $header = [
+                'Content-Type: application/json; charset=utf-8'
+            ];
+        }
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         //设置获取的信息以文件流的形式返回，而不是直接输出。
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -79,7 +84,7 @@ class HttpHelper
      * @param string $err
      * @return array|bool|string
      */
-    public static function post($url, $data = [], $header = ['Accept: application/json'], &$err = '')
+    public static function post($url, $data = [], $header = [], &$err = '')
     {
         $curl = curl_init();
         //设置抓取的url
@@ -91,6 +96,11 @@ class HttpHelper
         // 超时设置
         curl_setopt($curl, CURLOPT_TIMEOUT, self::TIMEOUT);
         // 设置请求头
+        if (!$header) {
+            $header = [
+                'Content-Type: application/json; charset=utf-8'
+            ];
+        }
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false );
@@ -99,6 +109,35 @@ class HttpHelper
         curl_setopt($curl, CURLOPT_POST, 1);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
+        $data = curl_exec($curl);
+        if ($err = curl_error($curl)) {
+            return false;
+        }
+        curl_close($curl);
+        return $data;
+    }
+
+    /**
+     * post raw方式
+     * @param string $url
+     * @param array $data
+     * @param string $err
+     * @return bool|string
+     */
+    public static function postJson(string $url, array $data, &$err='') {
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        // 超时设置
+        curl_setopt($curl, CURLOPT_TIMEOUT, self::TIMEOUT);
+
+        curl_setopt($curl, CURLOPT_HTTPHEADER, [
+            'Content-Type: application/json; charset=utf-8'
+        ]);
+        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false );
         $data = curl_exec($curl);
         if ($err = curl_error($curl)) {
             return false;
