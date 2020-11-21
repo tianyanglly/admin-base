@@ -14,4 +14,10 @@ return [
 
     //jwt秘钥
     'jwt_key' => env('JWT_KEY', ''),
+
+    //忽略过滤request参数
+    'request_except_params' => [],
+
+    //开启格式化字符串整型
+    'request_format_int' => false
 ];

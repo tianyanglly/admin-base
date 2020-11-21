@@ -17,7 +17,10 @@ class Format
     public static function formatRequest(array $params)
     {
         if ($params) {
-            foreach ($params as &$val) {
+            foreach ($params as $key => &$val) {
+                if (in_array($key, config('base.request_except_params'))) {
+                    continue;
+                }
                 if ($val) {
                     $val = self::formatInt($val);
                 }

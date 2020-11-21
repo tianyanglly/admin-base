@@ -20,6 +20,9 @@ class DatetimeFormatBefore
      */
     public function handle(Request $request, Closure $next)
     {
+        if (config('base.request_format_int')) {
+            return $next($request);
+        }
         $params = Format::formatRequest($request->all());
 
         $request->merge($params);
