@@ -18,7 +18,7 @@ class Format
     {
         if ($params) {
             foreach ($params as $key => &$val) {
-                if (in_array($key, config('base.request_except_params'))) {
+                if (in_array($key, config('base.request_except_params', []))) {
                     continue;
                 }
                 if ($val) {

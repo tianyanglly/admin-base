@@ -38,6 +38,16 @@ class Date
     }
 
     /**
+     * 前几天
+     * @param int $day
+     * @param string $format
+     * @return false|string
+     */
+    public static function last($day=-1, $format = 'Y-m-d'){
+        return date($format, strtotime($day . ' day'));
+    }
+
+    /**
      * 昨天
      * @param string $format
      * @return false|string
