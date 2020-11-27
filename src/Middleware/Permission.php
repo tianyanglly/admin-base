@@ -73,7 +73,8 @@ class Permission extends \Encore\Admin\Middleware\Permission
             'auth/setting/enable_2fa',
             'auth/setting/disable_2fa',
             'auth/validate2fa',
-            'auth/setting'
+            'auth/setting',
+            'dashboard'
         ]);
 
         return collect($excepts)
