@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Admin\Extensions\Nav;
+namespace AdminBase\Extensions;
 
 use Encore\Admin\Admin;
 use Illuminate\Contracts\Support\Renderable;
