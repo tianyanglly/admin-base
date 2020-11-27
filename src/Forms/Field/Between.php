@@ -102,9 +102,10 @@ class Between extends \Encore\Admin\Grid\Filter\Between
      */
     protected function buildCondition()
     {
-        if ($this->isSub) {
+        $column = explode('.', $this->column);
+        if ($this->isSub || count($column) == 1) {
             return [$this->query => func_get_args()];
         }
-        return parent::buildCondition();
+        return $this->buildRelationQuery(...func_get_args());
     }
 }
