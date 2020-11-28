@@ -37,6 +37,10 @@ class Permission extends \Encore\Admin\Middleware\Permission
             return $next($request);
         }
 
+        if ($this->skipPermission($request)) {
+            return $next($request);
+        }
+
         //接口跳过权限认证
         if($request->route()->getPrefix() == '/api') {
             return $next($request);
@@ -67,15 +71,34 @@ class Permission extends \Encore\Admin\Middleware\Permission
             '_handle_form_',
             '_handle_selectable_',
             '_handle_renderable_',
+        ]);
+
+        return collect($excepts)
+            ->map('admin_base_path')
+            ->contains(function ($except) use ($request) {
+                if ($except !== '/') {
+                    $except = trim($except, '/');
+                }
+
+                return $request->is($except);
+            });
+    }
+
+    /**
+     * 跳过权限验证
+     * @param $request
+     * @return bool
+     */
+    protected function skipPermission($request){
+        $excepts = [
             'auth/recovery',
-            'auth/check',
-            'auth/verify',
             'auth/setting/enable_2fa',
             'auth/setting/disable_2fa',
             'auth/validate2fa',
             'auth/setting',
-            'dashboard'
-        ]);
+            'dashboard',
+            '/'
+        ];
 
         return collect($excepts)
             ->map('admin_base_path')
