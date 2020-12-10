@@ -35,7 +35,10 @@ class RolePermission extends AdminBaseModel
      * @return array
      */
     public static function allowPermission($roleIds){
-        $list = self::query()->where('role_id', $roleIds)->pluck('permission_id')->toArray();
+        if (!is_array($roleIds)) {
+            $roleIds = [$roleIds];
+        }
+        $list = self::query()->whereIn('role_id', $roleIds)->pluck('permission_id')->toArray();
         return $list ?: [];
     }
 }

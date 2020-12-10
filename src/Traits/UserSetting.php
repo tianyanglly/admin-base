@@ -93,7 +93,9 @@ trait UserSetting
             $form->divider('基础信息');
             $form->display('username', trans('admin.username'));
             $form->text('name', trans('admin.name'))->required();
-            $form->image('avatar', trans('admin.avatar'))->resize(200, 200);
+            $form->image('avatar', trans('admin.avatar'))->fit(150, 150, function ($constraint) {
+                $constraint->upsize();
+            });
 
             $form->setAction(admin_url('auth/setting'));
         }

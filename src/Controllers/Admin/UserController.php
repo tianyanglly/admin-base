@@ -38,7 +38,9 @@ class UserController extends \Encore\Admin\Controllers\UserController
             ->updateRules(['required', 'min:6', "unique:{$connection}.{$userTable},username,{{id}}"]);
 
         $form->text('name', trans('admin.name'))->rules('required');
-        $form->image('avatar', trans('admin.avatar'))->resize(200, 200);
+        $form->image('avatar', trans('admin.avatar'))->fit(150, 150, function ($constraint) {
+            $constraint->upsize();
+        });
         $form->password('password', trans('admin.password'))
             ->creationRules(Constant::PASSWORD_ROLES, Constant::PASSWORD_ROLES_MSG)
             ->updateRules(['required', 'min:8', 'confirmed'])->help('密码必须是数字，字母，符号的组合');
