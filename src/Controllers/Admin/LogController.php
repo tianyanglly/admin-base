@@ -4,7 +4,6 @@
 namespace AdminBase\Controllers\Admin;
 
 use AdminBase\Actions\LogInput;
-use AdminBase\Models\Admin\User;
 use AdminBase\Traits\Search;
 use Encore\Admin\Auth\Database\OperationLog;
 use Encore\Admin\Grid;
@@ -26,7 +25,7 @@ class LogController extends \Encore\Admin\Controllers\LogController
     {
         $grid = new Grid(new OperationLog());
         $grid->disableExport();
-
+        $grid->disableCreateButton();
         $grid->model()->orderBy('id', 'DESC');
 
         $grid->column('id', 'ID')->sortable();
@@ -45,9 +44,7 @@ class LogController extends \Encore\Admin\Controllers\LogController
             //模态框 form 表单提交
             $actions->add(new LogInput());
         });
-
-        $grid->disableCreateButton();
-
+        $this->search($grid);
         return $grid;
     }
 
@@ -56,8 +53,7 @@ class LogController extends \Encore\Admin\Controllers\LogController
      */
     protected function filter(Grid\Filter &$filter)
     {
-        $filter->equal('user_id', '用户')->select(User::all()->pluck('name', 'id'));
-        $filter->equal('method')->select(array_combine(OperationLog::$methods, OperationLog::$methods));
-        $filter->equal('ip');
+        $filter->equal('user_id', '用户');
+        $filter->equal('method', '请求方式')->select(array_combine(OperationLog::$methods, OperationLog::$methods));
     }
 }

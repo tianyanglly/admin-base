@@ -51,7 +51,7 @@ class RoleController extends \Encore\Admin\Controllers\RoleController
             $form->tab('信息', function (Form $form) {
                 $form->text('slug', trans('admin.slug'))->required();
                 $form->text('name', trans('admin.name'))->required();
-                $form->switch('is_2fa', '强制二次登录验证')->states(Constant::SWITCH);
+                $form->switch('is_2fa', '强制二次登录验证')->states(Constant::SWITCH)->default(1);
             })->tab('授权', function ($form) use ($id) {
                 $form->tree('permissions', trans('admin.permissions'))->options((new Permission())->layTree($id));
             });

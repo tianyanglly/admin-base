@@ -24,6 +24,18 @@ class Between extends \Encore\Admin\Grid\Filter\Between
     protected $isSelectTime = false;
 
     /**
+     * 是否以timestamp方式查询时间
+     * @var bool
+     */
+    protected $timestamp = false;
+
+    public function timestamp()
+    {
+        $this->timestamp = true;
+        return $this;
+    }
+
+    /**
      * 是否查询当前表子字段
      * @var bool
      */
@@ -55,6 +67,9 @@ class Between extends \Encore\Admin\Grid\Filter\Between
      */
     public function condition($inputs)
     {
+        if ($this->timestamp) {
+            return parent::condition($inputs);
+        }
         if ($this->ignore) {
             return;
         }
