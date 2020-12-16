@@ -31,7 +31,7 @@ class Href extends RowAction
     public function render()
     {
         if ($this->blank) {
-            return "<a href='{$this->url}' target='_blank'>{$this->name}</a>";
+            return "<a href='{$this->url}' class='popup'>{$this->name}</a>";
         }
         return "<a href='{$this->url}'>{$this->name}</a>";
     }
