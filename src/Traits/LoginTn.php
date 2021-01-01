@@ -18,13 +18,15 @@ trait LoginTn
         if ($this->guard()->check()) {
             return redirect($this->redirectPath());
         }
-
         $repeat = session()->has($this->sessionKey);
         return view($this->loginView, ['repeat' => $repeat]);
     }
 
     public function postLogin(Request $request)
     {
+        if (env('APP_ENV') == 'local') {
+            return parent::postLogin($request);
+        }
         if($request->session()->has($this->sessionKey) && !$request->session()->has(TnCode::SESSION_VERIFY)) {
             return back()->withInput()->withErrors([
                 'verify' => '请验证',

@@ -27,6 +27,9 @@ trait LoginGoogle
 
     public function postLogin(Request $request)
     {
+        if (env('APP_ENV') == 'local') {
+            return parent::postLogin($request);
+        }
         if($request->session()->has($this->sessionKey)) {
             $recaptcha = new \ReCaptcha\ReCaptcha(config('base.recaptcha_secret'));
             $resp = $recaptcha->setExpectedHostname(config('base.recaptcha_site_host'))
