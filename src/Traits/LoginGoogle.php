@@ -30,7 +30,6 @@ trait LoginGoogle
         if($request->session()->has($this->sessionKey)) {
             $recaptcha = new \ReCaptcha\ReCaptcha(config('base.recaptcha_secret'));
             $resp = $recaptcha->setExpectedHostname(config('base.recaptcha_site_host'))
-                ->setChallengeTimeout(2)
                 ->setScoreThreshold(0.5)
                 ->verify($request->input('g-token'), $_SERVER['REMOTE_ADDR']);
             if ($resp->isSuccess()) {
