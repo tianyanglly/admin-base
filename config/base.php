@@ -19,5 +19,9 @@ return [
     'request_except_params' => [],
 
     //开启格式化字符串整型
-    'request_format_int' => false
+    'request_format_int' => false,
+
+    'recaptcha_site' => '',
+    'recaptcha_secret' => '',
+    'recaptcha_site_host' => ''
 ];
