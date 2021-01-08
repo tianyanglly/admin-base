@@ -94,6 +94,7 @@ class Permission extends \Encore\Admin\Middleware\Permission
             'auth/recovery',
             'auth/setting/enable_2fa',
             'auth/setting/disable_2fa',
+            'auth/setting/password',
             'auth/validate2fa',
             'auth/setting',
             'dashboard',
