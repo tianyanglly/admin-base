@@ -6,6 +6,8 @@ use AdminBase\Models\Admin\NewOperationLog;
 use Closure;
 use Encore\Admin\Facades\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Redis;
 use ReflectionException;
 use ReflectionClass;
 use Exception;
@@ -58,6 +60,20 @@ class LogOperation extends \Encore\Admin\Middleware\LogOperation
                 }
             }
 
+            //限流
+            if (in_array($request->method(), ['POST', 'PUT'])) {
+                $key = 'limit_'.md5(json_encode($request->input()));
+                try{
+                    if (Redis::exists($key)) {
+                        admin_error('短时间内操作重复了，请确认是否合法！！');
+                        return redirect()->back();
+                    }
+                    Redis::setex($key, 30, 1);
+                } catch (Exception $e) {
+                    Log::error('[LogOperation] ' . $e->getLine().':' . $e->getMessage());
+                }
+            }
+
             $log = [
                 'user_id' => Admin::user()->id,
                 'path' => substr($request->path(), 0, 255),
@@ -70,7 +86,7 @@ class LogOperation extends \Encore\Admin\Middleware\LogOperation
             try {
                 NewOperationLog::create($log);
             } catch (Exception $exception) {
-                // pass
+                Log::error('[LogOperation] ' . $e->getLine().':' . $e->getMessage());
             }
         }
 
