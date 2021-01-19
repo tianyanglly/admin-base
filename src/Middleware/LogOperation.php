@@ -85,7 +85,7 @@ class LogOperation extends \Encore\Admin\Middleware\LogOperation
 
             try {
                 NewOperationLog::create($log);
-            } catch (Exception $exception) {
+            } catch (Exception $e) {
                 Log::error('[LogOperation] ' . $e->getLine().':' . $e->getMessage());
             }
         }
