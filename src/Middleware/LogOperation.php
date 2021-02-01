@@ -61,7 +61,7 @@ class LogOperation extends \Encore\Admin\Middleware\LogOperation
             }
 
             //限流
-            if (in_array($request->method(), ['POST', 'PUT'])) {
+            if (in_array($request->method(), ['POST'])) {
                 $key = 'limit_'.md5(json_encode($request->input()));
                 try{
                     if (Redis::exists($key)) {
