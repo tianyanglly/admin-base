@@ -60,7 +60,7 @@ class LogController extends \Encore\Admin\Controllers\LogController
             $filter->like('do', '操作');
         });
         $filter->column(1 / 3, function (Grid\Filter $filter) {
-            $filter->like('input', '操作');
+            $filter->like('input', '操作内容');
         });
     }
 }
