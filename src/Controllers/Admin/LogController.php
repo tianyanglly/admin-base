@@ -53,7 +53,14 @@ class LogController extends \Encore\Admin\Controllers\LogController
      */
     protected function filter(Grid\Filter &$filter)
     {
-        $filter->equal('user_id', '用户');
-        $filter->equal('method', '请求方式')->select(array_combine(OperationLog::$methods, OperationLog::$methods));
+        $filter->column(1 / 3, function (Grid\Filter $filter) {
+            $filter->equal('user_id', '用户ID');
+        });
+        $filter->column(1 / 3, function (Grid\Filter $filter) {
+            $filter->where('do', '操作');
+        });
+        $filter->column(1 / 3, function (Grid\Filter $filter) {
+            $filter->like('input', '操作');
+        });
     }
 }
