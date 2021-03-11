@@ -57,7 +57,7 @@ class LogController extends \Encore\Admin\Controllers\LogController
             $filter->equal('user_id', '用户ID');
         });
         $filter->column(1 / 3, function (Grid\Filter $filter) {
-            $filter->where('do', '操作');
+            $filter->like('do', '操作');
         });
         $filter->column(1 / 3, function (Grid\Filter $filter) {
             $filter->like('input', '操作');
