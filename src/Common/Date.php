@@ -38,6 +38,24 @@ class Date
     }
 
     /**
+     * 上周一
+     * @param string $format
+     * @return false|string
+     */
+    public static function lastWeekStart($format = 'Y-m-d'){
+        return date($format, strtotime('-1 monday', time()));
+    }
+
+    /**
+     * 上周末
+     * @param string $format
+     * @return false|string
+     */
+    public static function lastWeekEnd($format = 'Y-m-d') {
+        return date('Y-m-d', strtotime('-1 sunday', time()));
+    }
+
+    /**
      * 前几天
      * @param int $day
      * @param string $format
