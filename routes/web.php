@@ -11,7 +11,7 @@ Route::group([
         //----------------------------二次登陆验证----------------------------//
         $router->put('auth/setting/enable_2fa', 'Auth\SecurityController@validateTwoFactor')->name('开启二次验证');
         $router->put('auth/setting/disable_2fa', 'Auth\SecurityController@deactivateTwoFactor')->name('关闭二次验证');
-        $router->any('auth/validate2fa', 'Auth\Validate2FaController@index')->name('二次登陆验证');
+        $router->post('auth/validate2fa', 'Auth\Validate2FaController@index')->name('二次登陆验证');
 
         //----------------------------项目导航----------------------------//
         $router->resource('nav/categories', 'WebStack\CategoryController');
