@@ -29,6 +29,7 @@ class LogController extends \Encore\Admin\Controllers\LogController
         $grid->model()->orderBy('id', 'DESC');
 
         $grid->column('id', 'ID')->sortable();
+        $grid->column('path', '路径');
         $grid->column('user.name', '用户名称');
         $grid->column('ip', 'IP地址')->label('primary');
         $grid->column('method')->display(function ($method) {
