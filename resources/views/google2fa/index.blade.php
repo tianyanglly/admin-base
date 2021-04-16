@@ -53,7 +53,7 @@
                     <button type="submit" class="btn btn-primary btn-block btn-flat">验证</button>
                 </div>
                 <div class="col-xs-4">
-                    <a href="{{admin_url('auth/logout')}}" class="btn btn-default btn-block btn-flat">取消</a>
+                    <a href="{{admin_url('auth/logout')}}" class="btn btn-default btn-block btn-flat">退出</a>
                 </div>
                 <!-- /.col -->
             </div>

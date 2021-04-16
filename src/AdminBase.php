@@ -25,6 +25,7 @@ class AdminBase extends Extension
 
             $authController = config('admin.auth.controller');
             $router->get('auth/login', $authController.'@getLogin')->name('登录');
+            $router->get('auth/logout', $authController.'@getLogout')->name('登出');
             $router->post('auth/login', $authController.'@postLogin')->name('登录');
         });
     }
