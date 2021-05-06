@@ -6,7 +6,7 @@ namespace AdminBase\Utility;
 class HttpHelper
 {
     //超时时间
-    const TIMEOUT = 15;
+    const TIMEOUT = 30;
 
     /**
      * 上传文件
