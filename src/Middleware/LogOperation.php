@@ -68,7 +68,7 @@ class LogOperation extends \Encore\Admin\Middleware\LogOperation
                         admin_error('短时间内操作重复了，请确认是否合法！！');
                         return redirect()->back();
                     }
-                    Redis::setex($key, 30, 1);
+                    Redis::setex($key, 8, 1);
                 } catch (Exception $e) {
                     Log::error('[LogOperation] ' . $e->getLine().':' . $e->getMessage());
                 }
