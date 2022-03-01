@@ -47,9 +47,10 @@
                                     <p>启用双重身份验证以提高帐户的安全性。</p>
                                     <div class="panel-body">
                                         打开您的双重认证移动应用程序, 并扫描以下 QR 条码，<a href="https://authy.com/download/" target="_blank">下载地址</a>:
-                                        <p data-v-09174a1a=""><img data-v-09174a1a="" id="barcode"
-                                                                   alt="Image of QR barcode"
-                                                                   src="{{$inlineUrl}}">
+                                        <p>
+                                            <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+                                                {!! $inlineUrl !!}
+                                            </svg>
                                             <br data-v-09174a1a="">
                                             如果您的双重认证移动应用程序不支持 QR 条码, 请在下面的代码中输入:
                                             <code data-v-09174a1a="" id="secretkey">{{$secretKey}}</code></p>
