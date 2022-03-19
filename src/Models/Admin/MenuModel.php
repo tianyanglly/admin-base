@@ -60,7 +60,14 @@ class MenuModel extends Menu
             if (!isset($val['children']) || !$val['children']) {
                 return false;
             }
-            return true;
+            $show = false;
+            foreach ($val['children'] as $child) {
+                if($child['uri'] != "") {
+                    $show = true;
+                    break;
+                }
+            }
+            return $show;
         });
     }
 
