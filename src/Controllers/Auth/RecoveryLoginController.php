@@ -57,11 +57,9 @@ class RecoveryLoginController extends HttpController
             app('pragmarx.google2fa')->setStateless(false);
             Google2FA::login();
 
-            //更新恢复代码
-            $newCode = Random::character(32);
-            $user->recovery_code = $newCode;
+            $user->recovery_code = '';
+            $user->google2fa_secret = '';
             $user->save();
-            $request->session()->put(Constant::NEW_RECOVERY_CODE, $newCode);
             return redirect($this->redirectPath());
         } else {
             return back()->withInput()->withErrors([self::INPUT_KEY => '恢复代码不匹配']);

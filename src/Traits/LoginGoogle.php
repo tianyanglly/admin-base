@@ -33,7 +33,7 @@ trait LoginGoogle
         if($request->session()->has($this->sessionKey)) {
             $recaptcha = new \ReCaptcha\ReCaptcha(config('base.recaptcha_secret'));
             $resp = $recaptcha->setExpectedHostname($request->header('host'))
-                ->setScoreThreshold(0.5)
+                ->setScoreThreshold(config('base.recaptcha_score') ?: 0.8)
                 ->verify($request->input('g-token'), $_SERVER['REMOTE_ADDR']);
             if ($resp->isSuccess()) {
                 return parent::postLogin($request);
